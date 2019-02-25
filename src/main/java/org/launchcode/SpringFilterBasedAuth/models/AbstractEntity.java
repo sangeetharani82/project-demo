@@ -3,6 +3,9 @@ package org.launchcode.SpringFilterBasedAuth.models;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
@@ -13,4 +16,5 @@ public abstract class AbstractEntity {
     public int getUid() {
         return this.uid;
     }
+
 }

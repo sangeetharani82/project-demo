@@ -3,17 +3,11 @@ package org.launchcode.SpringFilterBasedAuth.Controller;
 import org.launchcode.SpringFilterBasedAuth.models.Recipe;
 import org.launchcode.SpringFilterBasedAuth.models.User;
 import org.launchcode.SpringFilterBasedAuth.models.dao.RecipeDao;
-import org.launchcode.SpringFilterBasedAuth.models.dao.UserDao;
-import org.launchcode.SpringFilterBasedAuth.models.forms.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin.liveconnect.SecurityContextHelper;
-import sun.rmi.runtime.Log;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -34,7 +28,6 @@ public class RecipeController extends AbstractController {
     public String userIndex(Model model, @PathVariable int uid){
         User user = userDao.findOne(uid);
         model.addAttribute("title", user.getEmail());
-        model.addAttribute("size", user.getRecipes().size());
         model.addAttribute("recipes", user.getRecipes());
         return "recipe/userIndex";
     }
@@ -43,7 +36,7 @@ public class RecipeController extends AbstractController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddRecipeForm(Model model, User user) {
         int uid = user.getUid();
-        model.addAttribute("title", uid + "" + user.getEmail());
+        model.addAttribute("title", uid + " " + user.getEmail());
         model.addAttribute(new Recipe());
         return "recipe/add";
     }
@@ -58,7 +51,7 @@ public class RecipeController extends AbstractController {
         newRecipe.setUser(user);
         recipeDao.save(newRecipe);
         model.addAttribute("message", "Recipe created for " + user.getEmail());
-        model.addAttribute("recipes", newRecipe.getUser().getRecipes());
+        model.addAttribute("recipes", user.getRecipes());
         return "recipe/userIndex";
         // return "redirect:single/"+newRecipe.getId();
     }
