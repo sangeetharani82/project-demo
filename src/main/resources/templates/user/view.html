@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<!--nav th:replace="fragments :: navigation"></nav>-->
+
+<div class="container" style="background:#FFFFF0;">
+
+    <div class="header">
+        <center style="font-size:30px;" th:text="${title}">Default title</center>
+    </div>
+    <div class="alert alert-success">
+        <strong th:text="${message}">Success!</strong>
+    </div>
+    <div class="btn-group">
+        <!--<a th:href="@{'/user'}" method="get">
+            <button class="btn btn-default">Home</button>
+        </a>-->
+        <a href="/recipe/add">
+            <button type="button" class="btn btn-success">Add Recipe</button>
+        </a>
+        <a th:href="@{'/logout'}" method="get">
+            <button class="btn btn-danger">Logout</button>
+        </a>
+    </div>
+    <P style="color:green" th:text="Welcome + ' ' +${user} + '!' "></P>
+
+    <!--<p style="color:green" th:text="${message}">Success!</p>
+    <div class="single" th:each="i : ${users}">
+        <table>
+            <tr>
+                <th>First Name</th>
+                <td th:id="${i.id}"
+                    th:text="${i.firstName}"></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td th:id="${i.id}"
+                    th:text="${i.lastName}"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td th:id="${i.id}"
+                    th:text="${i.email}"></td>
+            </tr>
+        </table>
+    </div>-->
+</div>
+</body>
+</html>
