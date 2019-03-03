@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("recipe")
@@ -36,7 +37,7 @@ public class RecipeController extends AbstractController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddRecipeForm(Model model, User user) {
         int uid = user.getUid();
-        model.addAttribute("title", uid + " " + user.getEmail());
+        model.addAttribute("title", user.getEmail());
         model.addAttribute(new Recipe());
         return "recipe/add";
     }
@@ -45,14 +46,15 @@ public class RecipeController extends AbstractController {
     public String processAddRecipeForm(Model model, @ModelAttribute @Valid Recipe newRecipe,
                                        Errors errors, User user) {
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add a recipe" + newRecipe.getUser().getEmail());
+            model.addAttribute("title", user.getEmail());
             return "recipe/add";
         }
         newRecipe.setUser(user);
         recipeDao.save(newRecipe);
-        model.addAttribute("message", "Recipe created for " + user.getEmail());
+        model.addAttribute("title", user.getEmail());
+        model.addAttribute("message", newRecipe.getRecipeName() + " " + "successfully created for "+user.getEmail());
         model.addAttribute("recipes", user.getRecipes());
-        return "recipe/userIndex";
-        // return "redirect:single/"+newRecipe.getId();
+        return "recipe/msgIndex";
     }
+
 }

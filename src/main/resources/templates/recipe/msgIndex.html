@@ -3,10 +3,15 @@
 <head th:replace="fragments :: head"></head>
 <body>
 <div class="container" style="background:#FFFFF0;">
+    <a th:href="@{'/recipe/userIndex/'+${user.uid}}" method="get">
+        <button class="btn btn-default">Home</button>
+    </a>
     <div class="header">
         <center style="font-size:30px;" th:text="${title}">Default title</center>
     </div>
-
+    <div class="alert alert-success">
+        <strong th:text="${message}">Success!</strong>
+    </div>
     <div class="btn-group">
         <a href="/recipe/add">
             <button type="button" class="btn btn-success">Add Recipe</button>
